@@ -3,7 +3,7 @@
  * Plugin Name: GT | bbPress Author Drop Down
  * Plugin URI: http://genbutheme.com/
  * Description: Enable author drop down in BBPress admin to change user for topics and reply.
- * Version: 0.1
+ * Version: 0.1.0
  * Author: David Chandra Purnama
  * Author URI: http://shellcreeper.com/
  *
