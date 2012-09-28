@@ -87,3 +87,47 @@ function gt_bbpress_author_metabox( $output ){
 	/* and return the output. */
 	return $output;
 }
+
+/* activate WP Github Plugin Updater to init hook */
+add_action('init', 'gt_bbpress_author_updater_init');
+
+/**
+ * WP Github Plugin Updater Class
+ * Semi-automated plugin updater for GitHub hosted plugin
+ * 
+ * @link https://github.com/jkudish/WordPress-GitHub-Plugin-Updater
+ * @author Joachim Kudish
+ * @version: 1.4
+ *
+ * @since 0.2.1
+ */
+function gt_bbpress_author_updater_init() {
+
+	/* load plugin updater class */
+	include_once( trailingslashit( plugin_dir_path( __FILE__) ) . 'updater.php' );
+
+	/* test only: force to delete transient for every page load */
+	//define('WP_GITHUB_FORCE_UPDATE', true);
+
+	/**
+	 * note the use of is_admin() to double check
+	 * that this is happening in the admin
+	 */
+	if (is_admin()) {
+
+		$config = array(
+			'slug' => plugin_basename(__FILE__),
+			'proper_folder_name' => 'gt-bbpress-author',
+			'api_url' => 'https://api.github.com/repos/turtlepod/gt-bbpress-author',
+			'raw_url' => 'https://raw.github.com/turtlepod/gt-bbpress-author/master',
+			'github_url' => 'https://github.com/turtlepod/gt-bbpress-author',
+			'zip_url' => 'https://github.com/turtlepod/gt-bbpress-author/zipball/master',
+			'sslverify' => true,
+			'requires' => '3.0.0',
+			'tested' => '3.4.2',
+			'readme' => 'README.md'
+		);
+
+		new WPGitHubUpdater($config);
+	}
+}
